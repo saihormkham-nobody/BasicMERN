@@ -1,29 +1,26 @@
-import React, { Component } from "react";
-import "./App.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import HomePage from "./pages/homepage.component";
-import {} from "react-router-dom";
-import BookDetailPage from "./pages/book.component";
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { makeStyles } from "@material-ui/core/styles";
+import * as React from 'react';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import ProTip from './ProTip';
+import HomePage from './pages/homepage.component';
 
-const useStyles = makeStyles((theme) => ({
-  drawerPaper: { width: "inherit" },
-}));
-
-function App() {
+function Copyright() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <IndexRoute component={HomePage} />
-        <Route exact path="/" component={App} />
-        <Route path="/book" component={BookDetailPage} />
-      </Switch>
-    </BrowserRouter>
+    <Typography variant="body2" color="text.secondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <HomePage/>
+  );
+}
