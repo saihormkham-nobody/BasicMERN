@@ -6,7 +6,7 @@ import CardList from "../components/bookCardList";
 
 const BookDetailPage = (prop) => (
   <div>
-    <MaterialAppBar />
+    
     <Container>
     <p>Hello World</p>
     </Container>
