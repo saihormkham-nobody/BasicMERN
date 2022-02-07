@@ -4,6 +4,9 @@
 //     mongoURL: process.env.MONGO_URL
 // };
 
-module.export = {
-    mongoURL: "mongodb://localhost:27017/bookDb"
-}
+const config = {
+  mongoURL: "mongodb://localhost:27017/bookDb",
+};
+
+
+module.exports = config;

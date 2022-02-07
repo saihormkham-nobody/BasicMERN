@@ -1,26 +1,26 @@
-const keys = require("./keys");
-
-
 // Express App Setup
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const routes = require("./routes")
-const mongoose = require("mongoose");
+
+// Swagger
+
+const swaggerUi = require("swagger-ui-express");
+
+// Database config
+const connectDb = require("./config/db");
 
 const app = express();
+// Database Connection
+connectDb();
+
 app.use(cors());
 app.use(bodyParser.json());
 
-// mongoose.connect(config.mongoURL).then(() => {
-//     console.log('MongoDB connected!!');
-// }).catch(err => {
-//     console.log('Failed to connect to MongoDB', err);
-// });
 
-
-// // Express route handlers
-// app.use("/api",routes);
+// Express route handlers
+app.use("/api/book",routes);
 
 app.listen(5000, (err) => {
   console.log("Listening");
