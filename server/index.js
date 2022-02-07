@@ -1,5 +1,5 @@
-// Server Config File
-import config from "./keys";
+const keys = require("./keys");
+
 
 // Express App Setup
 const express = require("express");
