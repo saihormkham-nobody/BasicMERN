@@ -2,9 +2,12 @@
     "name": "book-list-server",
     "version": "0.1.0",
     "private": true,
+    "type": "module",
     "dependencies": {
         "cors": "^2.8.5",
         "express": "^4.17.2",
+        "mongo": "^0.1.0",
+        "mongoose": "^6.2.0",
         "nodemon": "^2.0.15"
     },
     "scripts": {

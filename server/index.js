@@ -1,27 +1,26 @@
-const keys = require("./keys");
+// Server Config File
+import config from "./keys";
 
 // Express App Setup
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const routes = require("./routes")
+const mongoose = require("mongoose");
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Express route handlers
+// mongoose.connect(config.mongoURL).then(() => {
+//     console.log('MongoDB connected!!');
+// }).catch(err => {
+//     console.log('Failed to connect to MongoDB', err);
+// });
 
-app.get("/", (req, res) => {
-  res.send("Hi");
-});
 
-app.get("/values/all", async (req, res) => {
-  res.send("Hi");
-  // const values = await pgClient.query("SELECT * from values");
-
-  // res.send(values.rows);
-});
-
+// // Express route handlers
+// app.use("/api",routes);
 
 app.listen(5000, (err) => {
   console.log("Listening");
