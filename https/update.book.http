@@ -1,0 +1,17 @@
+PUT http://localhost:5000/api/book/reading HTTP/1.1
+content-type: application/json
+
+{
+    "id": "620209c36d38f37eb264995f"
+}
+
+###
+# Invalid Id Format
+PUT http://localhost:5000/api/book/reading HTTP/1.1
+content-type: application/json
+
+{
+    "id": "620209c36d38f37eb264995ff"
+}
+
+###

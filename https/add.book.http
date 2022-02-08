@@ -1,0 +1,29 @@
+POST http://localhost:5000/api/book/reading HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Hello World",
+    "author": "Sai Horm Kham"
+}
+
+###
+# Invalid Post
+# Missing author
+POST http://localhost:5000/api/book/reading HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Hello World" 
+}
+
+###
+# Invalid Post
+# Missing name
+POST http://localhost:5000/api/book/reading HTTP/1.1
+content-type: application/json
+
+{
+    "author": "Sai Horm Kham"
+}
+
+###

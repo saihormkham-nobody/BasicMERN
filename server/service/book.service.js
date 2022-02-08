@@ -6,35 +6,38 @@ class BookService {
 
   getAllReadingBook = async () => {
     try {
-      const books = await Book.find({ finished: { $exist: true } }).size(
+      const books = await Book.find({ finished: { $exists: false } }).limit(
         maxReadingBookAmount
       );
       return {
         success: true,
         data: books,
+        total: books.length,
       };
     } catch (err) {
       console.log("Can't Find book ", err);
-      return {
-        success: false,
-        data: "Can't Find books",
-      };
     }
+    return {
+      success: false,
+      data: "Can't Find books",
+    };
   };
 
   getAllFinishedBook = async (reqPage) => {
-    const totalBook = await Book.countDocuments();
+    const totalBook = await Book.countDocuments({
+      finished: { $exists: true },
+    });
     // set default page as 1
     const page = parseInt(reqPage) || 1;
     // calculate last page
     let lastPage = Math.ceil(totalBook / bookPerPage);
-    if (lastPage < 1 && total > 0) {
+    if (lastPage < 1 && totalBook > 0) {
       lastPage = 1;
     }
     // calculate start value
     const startFrom = (page - 1) * bookPerPage;
     try {
-      const books = await Book.find({ finished: { "$exists": true } })
+      const books = await Book.find({ finished: { $exists: true } })
         .sort("-created")
         .skip(startFrom)
         .limit(bookPerPage);
@@ -47,7 +50,7 @@ class BookService {
       };
     } catch (err) {
       console.log(err);
-      return { success: false, message: "something went wrong" };
+      return { success: false, message: "Something went wrong" };
     }
   };
 
@@ -93,14 +96,23 @@ class BookService {
     }
   };
 
-  updateBook = async (id) => {
+  updateBookAsRead = async ({ id }) => {
     // TODO implement
+    const book = await Book.findById(id);
+    console.log("book", book);
+    console.log("!book", !book);
+    console.log("!book.finished", !book.finished);
+    return { success: false };
+    // if(!book){
+    //   return {success:false, message: `Book ${id} does not exists`}
+    // }
+    // if(book.)
   };
 
   initBookData = async (id) => {
     const total = await Book.countDocuments();
-    console.log("number of document ",total);
-    if(total==0){
+    console.log("number of document ", total);
+    if (total == 0) {
       const books = [
         { name: "A Tale of Two Cities", author: "Charles Dickens" },
         { name: "The Hobbit", author: "J. R. R. Tolkien" },
@@ -284,18 +296,42 @@ class BookService {
         },
         { name: "Where the Wild Things Are", author: "Maurice Sendak" },
       ];
-      books.forEach(async (e)=>{
+      books.forEach(async (e) => {
         const book = new Book({
           name: e.name,
           author: e.author,
-          finished: new Date()
+          finished: new Date(),
         });
         const result = await book.save();
-        
+
         console.log(result);
-      })
+      });
     }
-    
+  };
+
+  insertReadingBook = async ({ name, author }) => {
+    // Check Reading Books Count
+    const readingBookCount = await Book.countDocuments({
+      finished: { $exists: false },
+    });
+    // If User has been reading 6 books, deny the request.
+    if (readingBookCount >= maxReadingBookAmount) {
+      return {
+        success: false,
+        message:
+          "Please finish one of your current reading book before starting reading a new book",
+      };
+    }
+    console.log("Current Reading Book ", readingBookCount);
+    const book = new Book({ name, author });
+    try {
+      book.save();
+      console.log("Book inserted: ", book);
+      return { success: true, data: book };
+    } catch (err) {
+      console.log(err);
+    }
+    return { success: false, message: "Something went wrong" };
   };
 }
 
