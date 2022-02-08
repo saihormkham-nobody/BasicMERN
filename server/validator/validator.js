@@ -1,6 +1,6 @@
-const ObjectId = require("mongodb").ObjectId;
+import { ObjectId } from "mongodb";
 
-const mongoIdValidator = (value) => {
+export const mongoIdValidator = (value) => {
   const isValidId = ObjectId.isValid(value);
   if (!isValidId) {
     return Promise.reject(
@@ -10,6 +10,4 @@ const mongoIdValidator = (value) => {
   return isValidId;
 };
 
-module.exports = {
-  mongoIdValidator,
-};
+

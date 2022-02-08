@@ -15,3 +15,7 @@ GET http://localhost:5000/api/book/finished/2 HTTP/1.1
 ###
 
 GET http://localhost:5000/api/book/finished/99999999 HTTP/1.1
+
+###
+
+GET http://localhost:5000/api/book/id/62020ce79c771bc2061f6d84 HTTP/1.1

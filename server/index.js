@@ -1,19 +1,19 @@
 // Express App Setup
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const routes = require("./routes")
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import routes from "./routes.js";
 
 // Swagger
 
-const swaggerUi = require("swagger-ui-express");
+import swaggerUi from "swagger-ui-express";
 
 // Database config
-const connectDb = require("./config/db");
+import connectDb from "./config/db.js";
 
 const app = express();
 // Database Connection
-connectDb();
+await connectDb();
 
 app.use(cors());
 app.use(bodyParser.json());
