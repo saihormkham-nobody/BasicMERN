@@ -1,21 +1,21 @@
-GET http://localhost:5000/api/book/reading HTTP/1.1
+GET http://localhost:5000/api/books/reading HTTP/1.1
 
 ###
 
-GET http://localhost:5000/api/book/finished/ HTTP/1.1
+GET http://localhost:5000/api/books/finished/ HTTP/1.1
 
 ###
 
-GET http://localhost:5000/api/book/finished/1 HTTP/1.1
+GET http://localhost:5000/api/books/finished/1 HTTP/1.1
 
 ###
 
-GET http://localhost:5000/api/book/finished/2 HTTP/1.1
+GET http://localhost:5000/api/books/finished/2 HTTP/1.1
 
 ###
 
-GET http://localhost:5000/api/book/finished/99999999 HTTP/1.1
+GET http://localhost:5000/api/books/finished/99999999 HTTP/1.1
 
 ###
 
-GET http://localhost:5000/api/book/id/62020ce79c771bc2061f6d84 HTTP/1.1
+GET http://localhost:5000/api/books/id/62020ce79c771bc2061f6d8 HTTP/1.1

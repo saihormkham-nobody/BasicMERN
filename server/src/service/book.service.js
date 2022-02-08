@@ -334,7 +334,7 @@ class BookService {
 
       book.save();
       console.log("Book inserted: ", book);
-      return { code: 200, body: { data: book } };
+      return { code: 201, body: { data: book } };
     } catch (err) {
       console.log(err);
     }
