@@ -8,16 +8,16 @@ import { CardActionArea } from '@mui/material';
 
 
 const BookCard = prop => {
+  const book = prop.book;
   return (
     <Card variant="outlined">
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {book.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {book.author}
           </Typography>
         </CardContent>
       </CardActionArea>

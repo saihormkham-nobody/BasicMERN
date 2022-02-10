@@ -1,0 +1,2 @@
+export const PUT_READING_LIST = 'PUT_READING_LIST';
+export const PUT_FINISHED_LIST = 'PUT_FINISH_LIST';

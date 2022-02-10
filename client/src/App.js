@@ -5,19 +5,6 @@ import { Routes, Route, Link } from "react-router-dom";
 import HomePage from "./pages/homepage.component";
 import BookDetailPage from "./pages/book.component";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 export default function App() {
   return (
     <div>
