@@ -1,17 +1,10 @@
-DELETE  http://localhost:5000/api/book/ HTTP/1.1
+DELETE  http://localhost:5000/api/books/id/62020ce99c771bc2061f6d86 HTTP/1.1
 content-type: application/json
-
-{
-    "id": "62020b2a4c4177dbd9f8b507"
-}
 
 ###
 # Invalid Id Format
-DELETE http://localhost:5000/api/book/ HTTP/1.1
+DELETE http://localhost:5000/api/books/ HTTP/1.1
 content-type: application/json
 
-{
-    "id": "620209c36d38f37eb264995ff"
-}
 
 ###

@@ -1,4 +1,4 @@
-POST http://localhost:5000/api/book/reading HTTP/1.1
+POST http://localhost:5000/api/books/reading HTTP/1.1
 content-type: application/json
 
 {
@@ -9,7 +9,7 @@ content-type: application/json
 ###
 # Invalid Post
 # Missing author
-POST http://localhost:5000/api/book/reading HTTP/1.1
+POST http://localhost:5000/api/books/reading HTTP/1.1
 content-type: application/json
 
 {
@@ -19,7 +19,7 @@ content-type: application/json
 ###
 # Invalid Post
 # Missing name
-POST http://localhost:5000/api/book/reading HTTP/1.1
+POST http://localhost:5000/api/books/reading HTTP/1.1
 content-type: application/json
 
 {

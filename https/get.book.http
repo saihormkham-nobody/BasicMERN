@@ -6,15 +6,15 @@ GET http://localhost:5000/api/books/finished/ HTTP/1.1
 
 ###
 
-GET http://localhost:5000/api/books/finished/1 HTTP/1.1
+GET http://localhost:5000/api/books/finished/?page=1 HTTP/1.1
 
 ###
 
-GET http://localhost:5000/api/books/finished/2 HTTP/1.1
+GET http://localhost:5000/api/books/finished/?page=2 HTTP/1.1
 
 ###
 
-GET http://localhost:5000/api/books/finished/99999999 HTTP/1.1
+GET http://localhost:5000/api/books/finished/?page=99999999 HTTP/1.1
 
 ###
 
