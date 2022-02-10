@@ -1,6 +1,6 @@
-import { PUT_READING_LIST } from "../action.type"
+import { INIT_READING_LIST } from "../action.type"
 
-export const putReadingBooks = books => ({
-    type: PUT_READING_LIST,
+export const initReadingBooks = books => ({
+    type: INIT_READING_LIST,
     payload: books
 })

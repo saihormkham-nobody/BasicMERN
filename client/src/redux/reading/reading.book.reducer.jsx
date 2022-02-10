@@ -1,4 +1,4 @@
-import { PUT_READING_LIST } from "../action.type";
+import { INIT_READING_LIST } from "../action.type";
 
 const INITIAL_STATE = {
   meta: {},
@@ -6,16 +6,9 @@ const INITIAL_STATE = {
 };
 const readingBookReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case PUT_READING_LIST: {
-      console.log("action.payload: ", action);
-      console.log("state: ", state);
+    case INIT_READING_LIST: {
       const { meta, data } = action.payload;
-      const nextState = {
-        ...state,
-        meta,
-        data,
-      };
-      return nextState;
+      return { meta, data };
     }
 
     default:

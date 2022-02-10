@@ -10,7 +10,7 @@ const BookCardList = (prop) => {
   const variant = prop.variant || "reading";
   const errorMsg = getErrorMessage(variant);
 
-  if (list == null || list.length == 0) {
+  if (list == null || list.length === 0) {
     return <Box sx={{ textAlign: "center" }}>{errorMsg}</Box>;
   }
   return (
@@ -19,7 +19,7 @@ const BookCardList = (prop) => {
         {list.map((e) => {
           return (
             <Grid key={e._id} item xs={12} sm={6} md={4}>
-              <BookCard book={e} />
+              <BookCard  book={e} />
             </Grid>
           );
         })}

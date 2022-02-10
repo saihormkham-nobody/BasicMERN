@@ -10,12 +10,12 @@ export const getAllReadingBook = async () => {
     const json = await response.json();
     return json;
   } catch (err) {
-    console.log(err);
+    console.log("ERROR", err);
   }
   return null;
 };
 
-export const getAllFinishedBook = async (reqPage) => {
+export const getFinishedBook = async (reqPage) => {
   try {
     const response = await fetch(`${finishedBookUri}?page=${reqPage}`);
     const json = await response.json();
@@ -35,11 +35,13 @@ export const deleteBook = async ({ id }) => {
 };
 
 export const getBookById = async (id) => {
-  try {
-  } catch (err) {
-    console.log(err);
+  const response = await fetch(`${bookUri}/id/${id}`);
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error);
   }
-  return;
+  const json = await response.json();
+  return json;
 };
 
 export const updateBookAsRead = async ({ id }) => {

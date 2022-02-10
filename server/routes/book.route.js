@@ -80,7 +80,7 @@ router.get("/reading", async (req, res) => {
 
 router.get("/finished/", async (req, res) => {
   const page = req.query.page;
-  const result = await bookService.getAllFinishedBook(page);
+  const result = await bookService.getFinishedBook(page);
   res.status(result.code).send(result.body);
 });
 

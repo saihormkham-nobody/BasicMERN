@@ -2,20 +2,24 @@ import React, { Component } from "react";
 import { Container } from "@mui/material";
 import BookCardList from "../components/bookCardList";
 import { Typography } from "@mui/material";
+
 import { connect } from "react-redux";
-import { putReadingBooks } from "../redux/reading/reading.book.action";
-import { putFinishedBooks } from "../redux/finished/finished.book.action";
+
+import { initReadingBooks } from "../redux/reading/reading.book.action";
+import { initFinishedBooks } from "../redux/finished/finished.book.action";
 import { useEffect } from "react";
+
 import {
-  getAllFinishedBook,
+  getFinishedBook,
   getAllReadingBook,
 } from "../services/book.service";
+import BookLoadingButton from "../components/loadingButton";
+import AddBookFAB from "../components/addBookFAB";
 
 const HomePage = (prop) => {
-  console.log(JSON.stringify(prop.reading.data));
   const reading = prop.reading.data || [];
   const finished = prop.finished.data || [];
-  const currentPage = prop.finished.meta.page || 0;
+  let currentPage = prop.finished.meta.page || 0;
   const { putReadingBooks, putFinishedBooks } = prop;
   useEffect(async () => {
     getAllReadingBook()
@@ -26,10 +30,18 @@ const HomePage = (prop) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [putReadingBooks]);
+  }, []);
 
   useEffect(() => {
-    getAllFinishedBook(currentPage + 1);
+    currentPage = 1;
+    getFinishedBook(currentPage)
+      .then((response) => {
+        console.log("response: ", response);
+        putFinishedBooks(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -46,14 +58,16 @@ const HomePage = (prop) => {
         </Typography>
 
         <BookCardList books={finished} />
+        <BookLoadingButton />
+        <AddBookFAB />
       </Container>
     </div>
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  putReadingBooks: (books) => dispatch(putReadingBooks(books)),
-  putFinishedBooks: (books) => dispatch(putFinishedBooks(books)),
+  putReadingBooks: (books) => dispatch(initReadingBooks(books)),
+  putFinishedBooks: (books) => dispatch(initFinishedBooks(books)),
 });
 
 const mapStateToProps = (state) => ({

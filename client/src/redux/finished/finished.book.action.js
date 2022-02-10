@@ -1,6 +1,11 @@
-import { PUT_READING_LIST } from "../action.type"
+import {INIT_FINISHED_LIST, ADD_MANY_FINISHED_LIST } from "../action.type"
 
-export const putFinishedBooks = books => ({
-    type: PUT_READING_LIST,
+export const initFinishedBooks = books => ({
+    type: INIT_FINISHED_LIST,
+    payload: books
+})
+
+export const addManyFinishedBooks = books => ({
+    type: ADD_MANY_FINISHED_LIST,
     payload: books
 })

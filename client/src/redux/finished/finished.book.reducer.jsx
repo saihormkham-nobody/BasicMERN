@@ -1,13 +1,23 @@
-import { PUT_FINISHED_LIST } from "../action.type"
+import { INIT_FINISHED_LIST, ADD_MANY_FINISHED_LIST } from "../action.type"
 
 const INITIAL_STATE = {
     meta: {},
     data: []
 }
-const bookReducer = (state = INITIAL_STATE, action) => {
+const finishedBookReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
-        case PUT_FINISHED_LIST:{
-            return state;
+        case INIT_FINISHED_LIST:{
+            return action.payload;
+        }
+
+        case ADD_MANY_FINISHED_LIST:{
+            const {data,meta} = action.payload;
+            console.log("state",...state.data);
+            console.log("data",...data);
+            return{
+                meta,
+                data: [...state.data, ...data]  
+            }
         }
 
         default:
@@ -15,4 +25,4 @@ const bookReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default bookReducer;
+export default finishedBookReducer;
