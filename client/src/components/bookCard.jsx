@@ -13,7 +13,7 @@ const BookCard = prop => {
   const to = `/book/id/${book._id}`;
   return (
     <Card variant="outlined" style={{ height: '100%' }}>
-      <CardActionArea component={Link} to={to}>
+      <CardActionArea component={Link} to={to} style={{ height: '100%' }}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {book.name}

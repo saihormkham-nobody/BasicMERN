@@ -26,21 +26,31 @@ export const getFinishedBook = async (reqPage) => {
   return null;
 };
 
-export const deleteBook = async ({ id }) => {
-  try {
-  } catch (err) {
-    console.log(err);
+export const deleteBook = async (id) => {
+  console.log("id", id);
+  const response = await fetch(`${bookUri}id/${id}`, {
+    method: "Delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await response.json();
+  if (!response.ok) {
+    console.log(response.status, response.statusText);
+    const errorMessage = await json.errors.message;
+    throw new Error(errorMessage);
   }
-  return null;
+  return json;
 };
 
 export const getBookById = async (id) => {
   const response = await fetch(`${bookUri}id/${id}`);
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(error);
-  }
   const json = await response.json();
+  if (!response.ok) {
+    console.log(response.status, response.statusText);
+    const errorMessage = await json.errors.message;
+    throw new Error(errorMessage);
+  }
   return json;
 };
 
@@ -69,5 +79,4 @@ export const insertReadingBook = async ({ name, author }) => {
 
   return json;
 
-  return;
 };
