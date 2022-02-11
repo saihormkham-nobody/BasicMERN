@@ -150,6 +150,7 @@ router.delete(
   [param("id").custom(mongoIdValidator)],
   async (req, res) => {
     console.log(req.body);
+    const id = req.params.id;
     // Validate Field
     const errors = validationResult(req);
 
@@ -158,7 +159,7 @@ router.delete(
       return invalidArgumentResponse(res, errors);
     }
 
-    const result = await bookService.deleteBook(req.body);
+    const result = await bookService.deleteBook({id});
     return res.status(result.code).json(result);
   }
 );

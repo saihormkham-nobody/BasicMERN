@@ -35,7 +35,7 @@ export const deleteBook = async ({ id }) => {
 };
 
 export const getBookById = async (id) => {
-  const response = await fetch(`${bookUri}/id/${id}`);
+  const response = await fetch(`${bookUri}id/${id}`);
   if (!response.ok) {
     const error = await response.text();
     throw new Error(error);
@@ -53,10 +53,21 @@ export const updateBookAsRead = async ({ id }) => {
 };
 
 export const insertReadingBook = async ({ name, author }) => {
-  try {
-  } catch (err) {
-    console.log(err);
+  const response = await fetch(`${readingBookUri}`, {
+    method: "POST",
+    body: JSON.stringify({ name, author }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await response.json();
+  if (!response.ok) {
+    console.log(response.status, response.statusText);
+    const errorMessage = await json.errors.message;
+    throw new Error(errorMessage);
   }
+
+  return json;
 
   return;
 };

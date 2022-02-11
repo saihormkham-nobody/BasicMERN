@@ -66,6 +66,7 @@ class BookService {
     try {
       // Find the book
       const book = await Book.findById(id);
+      console.log(id);
       if (book == null) {
         return elementNotFoundError("Book");
       }
