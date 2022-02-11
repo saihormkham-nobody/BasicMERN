@@ -3,14 +3,21 @@ import config from "./keys.js";
 const { connect } = mongoose;
 
 const connectDB = async () => {
-  console.log("start connection", config.mongoURL);
+  
+  let url;
+  if(process.env.MONGO_URL){
+    url = process.env.MONGO_URL;
+  }else{
+    url = config.mongoURL
+  }
+  console.log("start connection", url);
   try {
-    const conn = connect(config.mongoURL, {
+    const conn = connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
 
-    console.log(`MongoDB Connected!!`);
+    console.log(`${url} MongoDB Connected!!`);
   } catch (err) {
     console.error(err);
     process.exit(1);

@@ -12,7 +12,6 @@ import options from "./config/swagger.option.js";
 // Database config
 import connectDb from "./config/db.js";
 
-
 const app = express();
 // Database Connection
 await connectDb();
@@ -20,15 +19,21 @@ await connectDb();
 app.use(cors());
 app.use(bodyParser.json());
 
+let prefix = "/api";
+if(process.env.MONGO_URL){
+  // Gonna re-route with nginx
+  prefix = "";
+}
+
 
 // Express route handlers
-app.use("/api/books",routes);
+app.use(`${prefix}/books`,routes);
 
 
 
 const specs = swaggerJsdoc(options);
 app.use(
-  "/docs",
+  "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );

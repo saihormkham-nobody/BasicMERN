@@ -103,8 +103,8 @@
  *                 - name
  *                 - author
  *       responses:
- *         '200':
- *           description: "OK"
+ *         '201':
+ *           description: "Created"
  *           content:
  *             application/json:
  *               schema:
