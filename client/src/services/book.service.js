@@ -30,17 +30,18 @@ export const deleteBook = async (id) => {
   console.log("id", id);
   const response = await fetch(`${bookUri}id/${id}`, {
     method: "Delete",
+    body: JSON.stringify({}),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  const json = await response.json();
+
   if (!response.ok) {
+    const json = await response.json();
     console.log(response.status, response.statusText);
     const errorMessage = await json.errors.message;
     throw new Error(errorMessage);
   }
-  return json;
 };
 
 export const getBookById = async (id) => {
@@ -54,12 +55,23 @@ export const getBookById = async (id) => {
   return json;
 };
 
-export const updateBookAsRead = async ({ id }) => {
-  try {
-  } catch (err) {
-    console.log(err);
+export const updateBookAsRead = async (id) => {
+  const response = await fetch(`${readingBookUri}`, {
+    method: "PATCH",
+    body: JSON.stringify({ id }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const json = await response.json();
+  console.log(json);
+  if (!response.ok) {
+    console.log(response.status, response.statusText, json);
+    const errorMessage = await json.errors.message;
+    throw new Error(errorMessage);
   }
-  return;
+
+  return json;
 };
 
 export const insertReadingBook = async ({ name, author }) => {
@@ -78,5 +90,4 @@ export const insertReadingBook = async ({ name, author }) => {
   }
 
   return json;
-
 };

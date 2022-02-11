@@ -11,6 +11,7 @@ import Slide from "@mui/material/Slide";
 import { Button } from "@mui/material";
 import { useState, forwardRef } from "react";
 import { connect } from "react-redux";
+import Transition from "./dialog/transition";
 
 const MaxReadingCount = 6;
 
@@ -74,11 +75,6 @@ const AddBookFAB = (props) => {
     </div>
   );
 };
-
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 
 const mapStateToProps = (state) => ({
   reading: state.reading,

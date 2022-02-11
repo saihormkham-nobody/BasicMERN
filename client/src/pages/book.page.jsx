@@ -10,6 +10,11 @@ import {
   Button,
   Skeleton,
   Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -20,38 +25,43 @@ import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Alert } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { deleteBook } from "../services/book.service";
-
+import { deleteBook, updateBookAsRead } from "../services/book.service";
+import { useNavigate } from "react-router-dom";
+import Transition from "../components/dialog/transition";
 const initState = {
   book: {},
+  success: "",
   error: "",
+  open: false,
   isLoading: "true",
 };
 
 const BookDetailPage = (prop) => {
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
   const [state, setState] = useState(initState);
 
   useEffect(() => {
     getBookById(id)
       .then((response) => {
-        setState({ book: response.data, error: "", isLoading: false });
+        setState({ ...state, book: response.data, isLoading: false });
       })
       .catch((err) => {
         console.log(err.message);
         setState({
+          ...state,
           error: "Invalid Id or Book not Found",
-          book: {},
           isLoading: false,
         });
       });
   }, []);
 
   const handleDelete = async (id) => {
-    console.log("handle", id);
     try {
       await deleteBook(id);
+      navigate("/");
     } catch (err) {
       setState({
         ...state,
@@ -60,10 +70,58 @@ const BookDetailPage = (prop) => {
     }
   };
 
-  const handleUpdate = () => {};
+  const handleOpen = () => {
+    setState({ ...state, open: true });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const handleUpdate = async () => {
+    try {
+      const response = await updateBookAsRead(id);
+      const book = response.data;
+      setState({
+        ...state,
+        book,
+        success: `Successfully update ${book.name} as finished`,
+      });
+    } catch (err) {
+      setState({
+        ...state,
+        error: err.message,
+      });
+    }
+  };
 
   return (
     <div>
+      <Dialog
+        open={state.open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Delete Permanently?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            The delete file cannot be recover!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button
+            color="error"
+            onClick={async () => {
+              await handleDelete(id);
+            }}
+          >
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Container sx={{ my: 3 }}>
         {/* Display Error Message */}
         {state.error.length > 0 && (
@@ -73,6 +131,11 @@ const BookDetailPage = (prop) => {
         )}
 
         {/* Only show This Part if no error occurs*/}
+        {state.success.length > 0 && (
+          <Alert sx={{ mb: 3 }} severity="success">
+            {state.success}
+          </Alert>
+        )}
 
         {state.isLoading ? (
           <Skeleton
@@ -83,7 +146,7 @@ const BookDetailPage = (prop) => {
           <BookInfo
             book={state.book}
             handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
+            handleOpen={handleOpen}
           />
         )}
       </Container>
@@ -91,7 +154,7 @@ const BookDetailPage = (prop) => {
   );
 };
 
-const BookInfo = ({ book, handleUpdate, handleDelete }) => {
+const BookInfo = ({ book, handleUpdate, handleOpen }) => {
   const created = new Date(book.created).toDateString();
   let longDate = 1;
   if (book.finished) {
@@ -129,30 +192,22 @@ const BookInfo = ({ book, handleUpdate, handleDelete }) => {
       {/* Change Action Buttons based on whether finished or not */}
       {book.finished ? (
         <CardActions>
-          <Button
-            size="small"
-            color="error"
-            onClick={() => {
-              console.log("clicked", book._id);
-              handleDelete(book._id);
-            }}
-          >
+          <Button size="small" color="error" onClick={handleOpen}>
             Delete reading history
           </Button>
         </CardActions>
       ) : (
         <CardActions>
-          <Button size="small" color="success">
-            Finished Reading!
-          </Button>
           <Button
             size="small"
-            color="error"
+            color="success"
             onClick={() => {
-              console.log("clicked", book._id);
-              handleDelete(book._id);
+              handleUpdate(book._id);
             }}
           >
+            Finished Reading!
+          </Button>
+          <Button size="small" color="error" onClick={handleOpen}>
             Give Up!
           </Button>
         </CardActions>

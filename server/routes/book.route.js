@@ -141,7 +141,7 @@ router.patch(
     }
 
     const result = await bookService.updateBookAsRead(req.body);
-    return res.status(result.code).json(result);
+    return res.status(result.code).json(result.body);
   }
 );
 
@@ -149,7 +149,6 @@ router.delete(
   "/id/:id",
   [param("id").custom(mongoIdValidator)],
   async (req, res) => {
-    console.log(req.body);
     const id = req.params.id;
     // Validate Field
     const errors = validationResult(req);
