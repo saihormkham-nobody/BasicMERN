@@ -153,8 +153,8 @@
  *                 - id
  * 
  *       responses:
- *         '201':
- *           description: "Created"
+ *         '200':
+ *           description: "OK"
  *           content:
  *             application/json:
  *               schema:
