@@ -38,16 +38,20 @@ const AddBookPage = (prop) => {
   });
   const onSubmit = async (data) => {
     try {
+      setState({
+        ...state, loading:true,
+      });
       const response = await insertReadingBook(data);
       const book = response.data;
       setState({
         error: "",
         success: `The Book ${book.name} has been saved in the database. `,
+        loading: false
       });
       reset();
     } catch (err) {
       //console.log(err.m);
-      setState({ success: "", error: err.message });
+      setState({ success: "", error: err.message, loading: false });
     }
   };
   return (
