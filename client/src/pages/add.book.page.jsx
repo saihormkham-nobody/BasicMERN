@@ -70,45 +70,45 @@ const AddBookPage = (prop) => {
             Keep track of your reading habit by adding to the reading list.
           </Typography>
         </Box>
-      </Container>
 
-      <Card variant="outlined" sx={{ maxWidth: 400, mx: "auto", my: 3 }}>
-        <CardContent>
-          <FormInputText name="name" control={control} label="Name" />
-          <Box sx={{ mb: 3 }}></Box>
-          <FormInputText
-            id="margin-normal"
-            margin="normal"
-            name="author"
-            control={control}
-            label="Author"
-          />
-          <Box sx={{ mb: 3 }}></Box>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Button
-                fullWidth
-                onClick={() => reset()}
-                variant={"outlined"}
-                color="error"
-              >
-                Reset
-              </Button>
+        <Card variant="outlined" sx={{ maxWidth: 400, mx: "auto", my: 3 }}>
+          <CardContent>
+            <FormInputText name="name" control={control} label="Name" />
+            <Box sx={{ mb: 3 }}></Box>
+            <FormInputText
+              id="margin-normal"
+              margin="normal"
+              name="author"
+              control={control}
+              label="Author"
+            />
+            <Box sx={{ mb: 3 }}></Box>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Button
+                  fullWidth
+                  onClick={() => reset()}
+                  variant={"outlined"}
+                  color="error"
+                >
+                  Reset
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <LoadingButton
+                  fullWidth
+                  onClick={handleSubmit(onSubmit)}
+                  loading={state.loading}
+                  loadingIndicator="Submitting..."
+                  variant={"contained"}
+                >
+                  Submit
+                </LoadingButton>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <LoadingButton
-                fullWidth
-                onClick={handleSubmit(onSubmit)}
-                loading={state.loading}
-                loadingIndicator="Submitting..."
-                variant={"contained"}
-              >
-                Submit
-              </LoadingButton>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </Container>
     </div>
   );
 };
