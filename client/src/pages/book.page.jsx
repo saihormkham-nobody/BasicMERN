@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MaterialAppBar from "../components/appBar";
 import {
   Container,
   Card,
@@ -24,12 +23,11 @@ import { LinearProgress } from "@mui/material";
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Alert } from "@mui/material";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { deleteBook, updateBookAsRead } from "../services/book.service";
 import { useNavigate } from "react-router-dom";
 import Transition from "../components/dialog/transition";
 const initState = {
-  book: {},
+  book: null,
   success: "",
   error: "",
   open: false,
@@ -137,7 +135,7 @@ const BookDetailPage = (prop) => {
           </Alert>
         )}
 
-        {state.isLoading ? (
+        {state.isLoading || state.book == null ? (
           <Skeleton
             variant="rectangular"
             sx={{ maxWidth: 400, mx: "auto", height: 150 }}
@@ -161,58 +159,60 @@ const BookInfo = ({ book, handleUpdate, handleOpen }) => {
     longDate = getDifferentDate(book.created, book.finished);
   }
   return (
-    <Card sx={{ maxWidth: 400, mx: "auto" }}>
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {book.name}
-        </Typography>
-        <Grid container rowSpacing={1} columnSpacing={2} sx={{ mt: 1 }}>
-          <Grid item xs={3}>
-            <Typography variant="body1">Author:</Typography>
-          </Grid>
-          <Grid item xs={9}>
-            <Typography variant="body1">{book.author}</Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <Typography variant="body1">Start Date:</Typography>
-          </Grid>
-          <Grid item xs={9}>
-            <Typography variant="body1">{created}</Typography>
-          </Grid>
-          {book.finished && (
-            <Grid item xs={12}>
-              <Typography variant="body1" style={{ color: "green" }}>
-                You have finished the book in {longDate}{" "}
-                {longDate > 1 ? "days" : "day"}.
-              </Typography>
+    <Container>
+      <Card variant="outlined" sx={{ maxWidth: 400, mx: "auto" }}>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {book.name}
+          </Typography>
+          <Grid container rowSpacing={1} columnSpacing={2} sx={{ mt: 1 }}>
+            <Grid item xs={3}>
+              <Typography variant="body1">Author:</Typography>
             </Grid>
-          )}
-        </Grid>
-      </CardContent>
-      {/* Change Action Buttons based on whether finished or not */}
-      {book.finished ? (
-        <CardActions>
-          <Button size="small" color="error" onClick={handleOpen}>
-            Delete reading history
-          </Button>
-        </CardActions>
-      ) : (
-        <CardActions>
-          <Button
-            size="small"
-            color="success"
-            onClick={() => {
-              handleUpdate(book._id);
-            }}
-          >
-            Finished Reading!
-          </Button>
-          <Button size="small" color="error" onClick={handleOpen}>
-            Give Up!
-          </Button>
-        </CardActions>
-      )}
-    </Card>
+            <Grid item xs={9}>
+              <Typography variant="body1">{book.author}</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="body1">Start Date:</Typography>
+            </Grid>
+            <Grid item xs={9}>
+              <Typography variant="body1">{created}</Typography>
+            </Grid>
+            {book.finished && (
+              <Grid item xs={12}>
+                <Typography variant="body1" style={{ color: "green" }}>
+                  You have finished the book in {longDate}{" "}
+                  {longDate > 1 ? "days" : "day"}.
+                </Typography>
+              </Grid>
+            )}
+          </Grid>
+        </CardContent>
+        {/* Change Action Buttons based on whether finished or not */}
+        {book.finished ? (
+          <CardActions>
+            <Button size="small" color="error" onClick={handleOpen}>
+              Delete reading history
+            </Button>
+          </CardActions>
+        ) : (
+          <CardActions>
+            <Button
+              size="small"
+              color="success"
+              onClick={() => {
+                handleUpdate(book._id);
+              }}
+            >
+              Finished Reading!
+            </Button>
+            <Button size="small" color="error" onClick={handleOpen}>
+              Give Up!
+            </Button>
+          </CardActions>
+        )}
+      </Card>{" "}
+    </Container>
   );
 };
 

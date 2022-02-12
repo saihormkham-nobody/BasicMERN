@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import MaterialAppBar from "../components/appBar";
-import { Container, Grid, Paper } from "@mui/material";
+import { Card, CardContent, Container, Grid, Paper } from "@mui/material";
 import { FormInputText } from "../components/form/formInputText";
 import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
@@ -11,6 +10,7 @@ import { insertReadingBook } from "../services/book.service";
 import * as yup from "yup";
 import { Alert } from "@mui/material";
 import { useState } from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
 const schema = yup
   .object({
     name: yup.string().required(),
@@ -26,6 +26,7 @@ const defaultValues = {
 const initState = {
   error: "",
   success: "",
+  loading: false,
 };
 
 const AddBookPage = (prop) => {
@@ -51,7 +52,7 @@ const AddBookPage = (prop) => {
   };
   return (
     <div>
-      <Container>
+      <Container sx={{ my: 3 }}>
         <Box sx={{ textAlign: "center", my: 3 }}>
           {state.error.length > 0 && (
             <Alert sx={{ mb: 3 }} severity="error">
@@ -71,8 +72,8 @@ const AddBookPage = (prop) => {
         </Box>
       </Container>
 
-      <Paper sx={{ width: 400, p: 2, mx: "auto", my: 3 }}>
-        <Box>
+      <Card variant="outlined" sx={{ maxWidth: 400, mx: "auto", my: 3 }}>
+        <CardContent>
           <FormInputText name="name" control={control} label="Name" />
           <Box sx={{ mb: 3 }}></Box>
           <FormInputText
@@ -84,19 +85,30 @@ const AddBookPage = (prop) => {
           />
           <Box sx={{ mb: 3 }}></Box>
           <Grid container spacing={2}>
-            <Grid item>
-              <Button onClick={handleSubmit(onSubmit)} variant={"contained"}>
-                Submit
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button onClick={() => reset()} variant={"outlined"}>
+            <Grid item xs={6}>
+              <Button
+                fullWidth
+                onClick={() => reset()}
+                variant={"outlined"}
+                color="error"
+              >
                 Reset
               </Button>
             </Grid>
+            <Grid item xs={6}>
+              <LoadingButton
+                fullWidth
+                onClick={handleSubmit(onSubmit)}
+                loading={state.loading}
+                loadingIndicator="Submitting..."
+                variant={"contained"}
+              >
+                Submit
+              </LoadingButton>
+            </Grid>
           </Grid>
-        </Box>
-      </Paper>
+        </CardContent>
+      </Card>
     </div>
   );
 };

@@ -22,8 +22,8 @@ services:
       - mongo
     environment:
       MONGO_URL: ${MONGO_URL}
-      IP : ${IP}
-    restart: unless-stopped
+      IP : ${LOCALHOST}
+    restart: always
   client:
     stdin_open: true
     build:
@@ -36,7 +36,7 @@ services:
       - ./client:/app
     environment:
       PROD: ${PROD}
-      IP : ${IP}
+      IP : ${LOCALHOST}
     restart: unless-stopped
   mongo:
     image: mongo
