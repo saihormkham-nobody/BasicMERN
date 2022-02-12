@@ -1,7 +1,5 @@
-import React, { Component } from "react";
-import { styled } from "@mui/material/styles";
+import React from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import BookCard from "./bookCard";
 

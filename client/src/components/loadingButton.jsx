@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Button } from "@mui/material";
 import { Box } from "@mui/material";
 import { connect } from "react-redux";
 import { Typography } from "@mui/material";

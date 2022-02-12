@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Card, CardContent, Container, Grid, Paper } from "@mui/material";
+import React from "react";
+import { Card, CardContent, Container, Grid } from "@mui/material";
 import { FormInputText } from "../components/form/formInputText";
 import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
@@ -39,14 +39,15 @@ const AddBookPage = (prop) => {
   const onSubmit = async (data) => {
     try {
       setState({
-        ...state, loading:true,
+        ...state,
+        loading: true,
       });
       const response = await insertReadingBook(data);
       const book = response.data;
       setState({
         error: "",
         success: `The Book ${book.name} has been saved in the database. `,
-        loading: false
+        loading: false,
       });
       reset();
     } catch (err) {

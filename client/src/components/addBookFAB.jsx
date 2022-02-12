@@ -1,15 +1,13 @@
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import Slide from "@mui/material/Slide";
 import { Button } from "@mui/material";
-import { useState, forwardRef } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import Transition from "./dialog/transition";
 

@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Container,
   Card,
-  Paper,
-  CardHeader,
   CardContent,
   CardActions,
   Button,
@@ -19,8 +17,6 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getBookById } from "../services/book.service";
 import { useState } from "react";
-import { LinearProgress } from "@mui/material";
-import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Alert } from "@mui/material";
 import { deleteBook, updateBookAsRead } from "../services/book.service";
