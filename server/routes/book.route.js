@@ -60,6 +60,13 @@
  *           $ref: "#/components/responses/NotFound" 
  *         '500':
  *           $ref: "#/components/responses/InternalServerError" 
+ *         '400':
+ *           description: "Bad Request"
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 oneOf:
+ *                   - $ref: "#/components/schemas/InvalidArgument" 
  *   /books/reading:
  *     get:
  *       tags:
